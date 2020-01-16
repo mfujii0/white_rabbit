@@ -1,0 +1,13 @@
+{
+  "manifest_version": 2,
+  "name": "White Rabbit",
+  "version": "0.1.0",
+
+  "description": "働け、45時間を超えるその日まで",
+  "content_scripts": [
+    {
+      "matches": ["https://ssl.jobcan.jp/employee/attendance"],
+      "js": ["jquery-3.4.1.min.js", "script.js"]
+    }
+  ]
+}
