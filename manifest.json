@@ -4,6 +4,7 @@
   "version": "0.1.0",
 
   "description": "働け、45時間を超えるその日まで",
+  "icons": { "160": "icon/rabbit_160.png" },
   "content_scripts": [
     {
       "matches": ["https://ssl.jobcan.jp/employee/attendance"],
