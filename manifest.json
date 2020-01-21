@@ -7,7 +7,7 @@
   "icons": { "160": "icon/rabbit_160.png" },
   "content_scripts": [
     {
-      "matches": ["https://ssl.jobcan.jp/employee/attendance"],
+      "matches": ["https://ssl.jobcan.jp/employee/attendance", "https://ssl.jobcan.jp/employee/attendance?*"],
       "js": ["jquery-3.4.1.min.js", "script.js"]
     }
   ]
