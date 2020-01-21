@@ -99,11 +99,16 @@ function modifyWorkingTimeSheet(monthly_overtime_minute) {
   );
   // 45時間まであと
   overtime_margin = (scheduled_working_minutes + 45 * 60) - (worked_minutes + remain_working_days * 8 * 60);
-  tr = $("<tr></tr>")
-    .attr("tooltip", "(月規定労働時間 + 45時間) - (実労働時間 + 残り実働日数 * 8時間)")
-    .append($("<th></th>").text("毎日8時間働いた場合、45時間まであと"))
-    .append($("<td></td>").text(minutesToTimeString(overtime_margin)))
-  tbody.append(tr);
+  td = $("<td></td>").text(minutesToTimeString(overtime_margin));
+  if (overtime_margin < 0) {
+    td.attr("style", "color: red;");
+  }
+  tbody.append(
+    $("<tr></tr>")
+      .attr("tooltip", "(月規定労働時間 + 45時間) - (実労働時間 + 残り実働日数 * 8時間)")
+      .append($("<th></th>").text("毎日8時間働いた場合、45時間まであと"))
+      .append(td)
+  );
 }
 
 // main.
