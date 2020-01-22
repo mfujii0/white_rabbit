@@ -32,6 +32,9 @@ function modifyTimeSheet() {
         text = "8時間を超えた労働時間"
         break;
       case '': // 合計のはず。なんかレイアウト崩れてる.
+        if (monthly_overtime_minute < 0 || 45 * 60 < monthly_overtime_minute) {
+          new_column.attr("style", "color: red;");
+        }
         text = minutesToTimeString(monthly_overtime_minute);
         break;
       default:
@@ -100,11 +103,15 @@ function modifyWorkingTimeSheet(monthly_overtime_minute) {
       .append($("<td></td>").text(remain_working_days + " 日"))
   );
   // 8時間を超えた労働時間
+  td = $("<td></td>").text(minutesToTimeString(monthly_overtime_minute));
+  if (monthly_overtime_minute < 0 || 45 * 60 < monthly_overtime_minute) {
+    td.attr("style", "color: red;");
+  }
   tbody.append(
     $("<tr></tr>")
       .attr("tooltip", "今月の実労働時間 - 勤務日数 * 8時間")
       .append($("<th></th>").text("8時間を超えた労働時間"))
-      .append($("<td></td>").text(minutesToTimeString(monthly_overtime_minute)))
+      .append(td)
   );
   // 45時間まであと
   overtime_margin = (scheduled_working_minutes + 45 * 60) - (worked_minutes + remain_working_days * 8 * 60);
