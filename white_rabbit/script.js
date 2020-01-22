@@ -67,12 +67,20 @@ function modifyWorkingTimeSheet(monthly_overtime_minute) {
   // 所定過不足計
   // diff = $('.infotpl table:nth-of-type(3) tbody tr:last-child td').text();
 
+  now_working = $('#search-result .note tbody').children().toArray().some(function(tr){
+    return tr.children[3].textContent.includes("(勤務中)"); // 退勤時刻
+  });
+
   // 所定労働日数
   scheduled_working_days = $('.infotpl table:first-of-type tbody tr:last-child td').text();
   scheduled_working_days = parseInt(scheduled_working_days);
   // 実働日数
   worked_days = $('.infotpl table:nth-of-type(2) tbody tr:first-child td').text();
   worked_days = parseInt(worked_days);
+  // 勤務中の場合は当日を実働日数に含みたくない.
+  if (now_working) {
+    worked_days -= 1;
+  }
   // 欠勤日数
   absenced_days = $('.infotpl table:nth-of-type(2) tbody tr:last-child td').text();
   absenced_days = parseInt(absenced_days);
@@ -87,13 +95,14 @@ function modifyWorkingTimeSheet(monthly_overtime_minute) {
 
   tbody.append(
     $("<tr></tr>")
+      .attr("tooltip", "勤務中の場合、当日を含みます") // tooltip.css で定義されてたので流用.
       .append($("<th></th>").text("残り実働日数"))
       .append($("<td></td>").text(remain_working_days + " 日"))
   );
   // 8時間を超えた労働時間
   tbody.append(
     $("<tr></tr>")
-      .attr("tooltip", "今月の実労働時間 - 勤務日数 * 8時間") // tooltip.css で定義されてたので流用.
+      .attr("tooltip", "今月の実労働時間 - 勤務日数 * 8時間")
       .append($("<th></th>").text("8時間を超えた労働時間"))
       .append($("<td></td>").text(minutesToTimeString(monthly_overtime_minute)))
   );
