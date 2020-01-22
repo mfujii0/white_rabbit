@@ -109,19 +109,21 @@ function modifyWorkingTimeSheet(monthly_overtime_minute) {
   }
   tbody.append(
     $("<tr></tr>")
-      .attr("tooltip", "今月の実労働時間 - 勤務日数 * 8時間")
+      .attr("tooltip", "今月の実労働時間 - 勤務日数 * 8時間\n勤務中の場合ズレが発生します")
       .append($("<th></th>").text("8時間を超えた労働時間"))
       .append(td)
   );
   // 45時間まであと
-  overtime_margin = (scheduled_working_minutes + 45 * 60) - (worked_minutes + remain_working_days * 8 * 60);
+  // 勤務中の場合のずれが面倒すぎるので「実労働時間」は信用しない
+  // overtime_margin = (scheduled_working_minutes + 45 * 60) - (worked_minutes + remain_working_days * 8 * 60);
+  overtime_margin = 45 * 60 - monthly_overtime_minute;
   td = $("<td></td>").text(minutesToTimeString(overtime_margin));
   if (overtime_margin < 0) {
     td.attr("style", "color: red;");
   }
   tbody.append(
     $("<tr></tr>")
-      .attr("tooltip", "(月規定労働時間 + 45時間) - (実労働時間 + 残り実働日数 * 8時間)")
+      .attr("tooltip", "(月規定労働時間 + 45時間) - (実労働時間 + 残り実働日数 * 8時間)\n勤務中の場合ズレが発生します")
       .append($("<th></th>").text("毎日8時間働いた場合、45時間まであと"))
       .append(td)
   );
