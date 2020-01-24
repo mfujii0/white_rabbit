@@ -90,11 +90,11 @@ function modifyWorkingTimeSheet(monthly_overtime_minute) {
   // 残り実働日数
   remain_working_days = scheduled_working_days - worked_days - absenced_days
   // 月規定労働時間
-  scheduled_working_minutes = $('.infotpl table:nth-of-type(3) tbody tr:nth-child(2) td').text();
-  scheduled_working_minutes = stringToMinutes(scheduled_working_minutes);
+  // scheduled_working_minutes = $('.infotpl table:nth-of-type(3) tbody tr:nth-child(2) td').text();
+  // scheduled_working_minutes = stringToMinutes(scheduled_working_minutes);
   // 実労働時間
-  worked_minutes = $('.infotpl table:nth-of-type(3) tbody tr:first-child td').text();
-  worked_minutes = stringToMinutes(worked_minutes);
+  // worked_minutes = $('.infotpl table:nth-of-type(3) tbody tr:first-child td').text();
+  // worked_minutes = stringToMinutes(worked_minutes);
 
   tbody.append(
     $("<tr></tr>")
